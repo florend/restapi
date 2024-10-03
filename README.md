@@ -7,4 +7,6 @@ Simple REST API using Java Spring Boot
 - Java: `^17`
 - Spring Boot `3.3.4`
 
+[Spring Initializr](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.3.4&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=lombok,h2,data-jpa,devtools,web)
+
 In progress
