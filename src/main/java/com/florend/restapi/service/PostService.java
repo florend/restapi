@@ -27,4 +27,20 @@ public class PostService {
         }
         return post.get();
     }
+
+    public Post addPost(Post newPost) {
+        return postRepository.save(newPost);
+    }
+
+    public Post updatePost(Post newPost) {
+        Optional<Post> post = postRepository.findById(newPost.getId());
+        if (post.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Post with id %d not found", newPost.getId()));
+        }
+        return postRepository.save(newPost);
+    }
+
+    public void deletePost(int id) {
+        postRepository.deleteById(id);
+    }
 }

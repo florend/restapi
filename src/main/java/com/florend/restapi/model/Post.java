@@ -1,9 +1,6 @@
 package com.florend.restapi.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +18,7 @@ public class Post {
     private int id;
     private String image;
     private String title;
+    @Lob
     private String body;
     //private Category category;
     private Date date;
