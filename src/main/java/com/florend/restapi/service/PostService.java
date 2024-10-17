@@ -20,7 +20,7 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    public Post getPostById(int id) {
+    public Post getPostById(long id) {
         Optional<Post> post = postRepository.findById(id);
         if (post.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Post with id %d not found", id));
@@ -40,7 +40,11 @@ public class PostService {
         return postRepository.save(newPost);
     }
 
-    public void deletePost(int id) {
+    public void deletePost(long id) {
         postRepository.deleteById(id);
+    }
+
+    public List<Post> searchPosts(String keyword) {
+        return postRepository.searchPosts(keyword);
     }
 }
