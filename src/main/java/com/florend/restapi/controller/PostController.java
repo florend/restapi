@@ -2,7 +2,6 @@ package com.florend.restapi.controller;
 
 import com.florend.restapi.model.Post;
 import com.florend.restapi.service.PostService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +12,11 @@ import java.util.List;
 @RequestMapping("/api/posts")
 @CrossOrigin(origins = "http://localhost:4200")
 public class PostController {
+    final PostService postService;
 
-    @Autowired
-    private PostService postService;
+    public PostController(PostService postService) {
+        this.postService = postService;
+    }
 
     @GetMapping
     public List<Post> getAllPosts() {
