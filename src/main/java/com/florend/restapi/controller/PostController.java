@@ -1,6 +1,7 @@
 package com.florend.restapi.controller;
 
 import com.florend.restapi.model.Post;
+import com.florend.restapi.payload.PostsResponse;
 import com.florend.restapi.service.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,11 @@ public class PostController {
     @GetMapping
     public List<Post> getAllPosts() {
         return postService.getAllPosts();
+    }
+
+    @GetMapping("/paginated")
+    public PostsResponse getPaginatedPosts(@RequestParam(value = "q", defaultValue = "") String query,@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "page_size", defaultValue = "5") int pageSize) {
+        return postService.getPaginated(query, page, pageSize);
     }
 
     @GetMapping("/{id}")
