@@ -25,7 +25,11 @@ public class PostController {
     }
 
     @GetMapping("/paginated")
-    public PostsResponse getPaginatedPosts(@RequestParam(value = "q", defaultValue = "") String query,@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "page_size", defaultValue = "5") int pageSize) {
+    public PostsResponse getPaginatedPosts(
+            @RequestParam(value = "q", defaultValue = "") String query,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "page_size", defaultValue = "5") int pageSize
+    ) {
         return postService.getPaginated(query, page, pageSize);
     }
 

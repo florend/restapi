@@ -42,6 +42,7 @@ public class PostServiceImpl  implements PostService {
         PostsResponse postsResponse = new PostsResponse();
         postsResponse.setItems(posts.getContent());
         postsResponse.setTotalCount(posts.getTotalElements());
+        postsResponse.setTotalPages(posts.getTotalPages());
         return postsResponse;
     }
 

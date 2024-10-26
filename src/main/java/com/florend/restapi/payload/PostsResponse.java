@@ -13,4 +13,5 @@ import java.util.List;
 public class PostsResponse {
     private long totalCount;
     private List<Post> items;
+    private int totalPages;
 }
