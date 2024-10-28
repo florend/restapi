@@ -1,6 +1,6 @@
 package com.florend.restapi.controller;
 
-import com.florend.restapi.model.Post;
+import com.florend.restapi.dto.PostDto;
 import com.florend.restapi.payload.PostsResponse;
 import com.florend.restapi.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,10 +34,10 @@ public class PostController {
             tags = { "posts", "get" }
     )
     @ApiResponses({
-            @ApiResponse(responseCode = "200", content = { @Content(array = @ArraySchema(schema = @Schema(implementation = Post.class)), mediaType = "application/json")})
+            @ApiResponse(responseCode = "200", content = { @Content(array = @ArraySchema(schema = @Schema(implementation = PostDto.class)), mediaType = "application/json")})
     })
     @GetMapping
-    public List<Post> getAllPosts() {
+    public List<PostDto> getAllPosts() {
         return postService.getAllPosts();
     }
 
@@ -64,10 +64,10 @@ public class PostController {
             tags = { "post", "get" }
     )
     @ApiResponses({
-            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = Post.class), mediaType = "application/json")})
+            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = PostDto.class), mediaType = "application/json")})
     })
     @GetMapping("/{id}")
-    public ResponseEntity<Post> getPostById(@PathVariable long id) {
+    public ResponseEntity<PostDto> getPostById(@PathVariable long id) {
         return new ResponseEntity<>(postService.getPostById(id), HttpStatus.OK);
     }
 
@@ -77,11 +77,11 @@ public class PostController {
             tags = { "post" }
     )
     @ApiResponses({
-            @ApiResponse(responseCode = "201", content = { @Content(schema = @Schema(implementation = Post.class), mediaType = "application/json")})
+            @ApiResponse(responseCode = "201", content = { @Content(schema = @Schema(implementation = PostDto.class), mediaType = "application/json")})
     })
     @PostMapping
-    public ResponseEntity<Post> addPost(@RequestBody Post post) {
-        Post newPost = postService.addPost(post);
+    public ResponseEntity<PostDto> addPost(@RequestBody PostDto post) {
+        PostDto newPost = postService.addPost(post);
         return new ResponseEntity<>(newPost, HttpStatus.CREATED);
     }
 
@@ -91,12 +91,12 @@ public class PostController {
             tags = { "post", "put" }
     )
     @ApiResponses({
-            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = Post.class), mediaType = "application/json")})
+            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = PostDto.class), mediaType = "application/json")})
     })
     @PutMapping("/{id}")
-    public ResponseEntity<Post> updatePost(@PathVariable long id, @RequestBody Post post) {
+    public ResponseEntity<PostDto> updatePost(@PathVariable long id, @RequestBody PostDto post) {
         post.setId(id);
-        Post newPost = postService.updatePost(post);
+        PostDto newPost = postService.updatePost(post);
         return new ResponseEntity<>(newPost, HttpStatus.OK);
     }
 
@@ -120,12 +120,12 @@ public class PostController {
             tags = { "post", "delete" }
     )
     @ApiResponses({
-            @ApiResponse(responseCode = "200", content = { @Content(array = @ArraySchema(schema = @Schema(implementation = Post.class)), mediaType = "application/json")})
+            @ApiResponse(responseCode = "200", content = { @Content(array = @ArraySchema(schema = @Schema(implementation = PostDto.class)), mediaType = "application/json")})
     })
     @GetMapping("/search")
-    public ResponseEntity<List<Post>> searchPosts(
+    public ResponseEntity<List<PostDto>> searchPosts(
             @Parameter(description = "Add the keyword in the url /search?keyword={yourkeyword}, if it's empty it will return all posts") @RequestParam String keyword) {
-        List<Post> posts = postService.searchPosts(keyword);
+        List<PostDto> posts = postService.searchPosts(keyword);
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 }
