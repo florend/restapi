@@ -2,11 +2,14 @@ package com.florend.restapi.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
+@Builder
 @Entity
 @Data
 @NoArgsConstructor
@@ -21,5 +24,5 @@ public class Post {
     @Lob
     private String body;
     //private Category category;
-    private Date date;
+    private LocalDateTime date;
 }
