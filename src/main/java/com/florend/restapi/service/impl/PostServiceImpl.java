@@ -68,8 +68,9 @@ public class PostServiceImpl  implements PostService {
     }
 
     @Override
-    public PostDto updatePost(PostDto newPost) {
-        Optional<Post> post = postRepository.findById(newPost.getId());
+    public PostDto updatePost(long id, PostDto newPost) {
+        newPost.setId(id);
+        Optional<Post> post = postRepository.findById(id);
         if (post.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Post with id %d not found", newPost.getId()));
         }
