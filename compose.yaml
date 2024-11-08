@@ -1,0 +1,14 @@
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_PASSWORD_FILE=/run/secrets/pg_password
+    ports:
+      - ${POSTGRES_LOCAL_PORT}:${POSTGRES_DOCKER_PORT}
+    secrets:
+      - pg_password
+secrets:
+  pg_password:
+    file: ./pg_password.txt

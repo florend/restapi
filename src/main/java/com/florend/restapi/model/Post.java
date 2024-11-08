@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Builder
 @Entity
@@ -15,13 +14,12 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String image;
     private String title;
-    @Lob
+//    @Lob
     private String body;
     //private Category category;
     private LocalDateTime date;

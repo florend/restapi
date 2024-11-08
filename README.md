@@ -6,16 +6,19 @@ Simple REST API using Java Spring Boot
 
 - Java: `^17`
 - Spring Boot `3.3.5`
+- Docker
 
-[Spring Initializr](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.3.4&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=lombok,h2,data-jpa,devtools,web)
+[Spring Initializr](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.3.5&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=web,security,docker-compose,testcontainers,devtools,lombok,postgresql,data-jpa)
 
 ## API Documentation
 
 Swagger 3
 http://localhost:8080/swagger-ui/index.html
 
-## H2 Console
+## Docker secrets
 
-http://localhost:8080/h2-console
+Add pg_password.txt at the root of the project containing the password of your postgres database.
 
-In progress
+## Register a user
+
+Use a REST Client to register a user.
