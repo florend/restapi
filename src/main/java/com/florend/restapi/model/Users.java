@@ -1,5 +1,6 @@
 package com.florend.restapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,5 +22,6 @@ public class Users {
     private String username;
     @Column(unique=true)
     private String email;
+    @JsonIgnore
     private String password;
 }

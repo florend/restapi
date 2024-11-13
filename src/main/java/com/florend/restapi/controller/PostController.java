@@ -20,7 +20,6 @@ import java.util.List;
 @Tag(name = "Post Controller", description = "All Post related APIs")
 @RestController
 @RequestMapping("/api/posts")
-@CrossOrigin(origins = "http://localhost:4200")
 public class PostController {
     final PostService postService;
 

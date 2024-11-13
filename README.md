@@ -15,9 +15,10 @@ Simple REST API using Java Spring Boot
 Swagger 3
 http://localhost:8080/swagger-ui/index.html
 
-## Docker secrets
+~~## Docker secrets~~
 
-Add pg_password.txt at the root of the project containing the password of your postgres database.
+~~Add pg_password.txt at the root of the project containing the password of your postgres database.~~
+Not supported by spring-boot-docker-compose
 
 ## Register a user
 
