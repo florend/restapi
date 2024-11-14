@@ -36,7 +36,10 @@ public class SecurityConfig {
                 .cors(configurer -> configurer.configurationSource(customCorsConfiguration))
                 .csrf(configurer -> configurer.disable())
                 .authorizeHttpRequests(request -> request
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "api/posts").permitAll()
+                        .requestMatchers("api/posts/search").permitAll()
                         .requestMatchers("api/posts/paginated").permitAll()
                         .requestMatchers("api/auth/register", "api/auth/login").permitAll()
                         .anyRequest().authenticated())
