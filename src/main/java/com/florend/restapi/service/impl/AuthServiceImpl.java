@@ -8,6 +8,7 @@ import com.florend.restapi.model.Users;
 import com.florend.restapi.payload.LoginResponse;
 import com.florend.restapi.repository.UserRepository;
 import com.florend.restapi.service.AuthService;
+import io.jsonwebtoken.Jwt;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -47,5 +48,14 @@ public class AuthServiceImpl implements AuthService {
         newUser.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         userRepository.save(newUser);
         return "registered " + newUser.getEmail();
+    }
+
+    @Override
+    public Users getCurrentUser() {
+        Authentication authToken = SecurityContextHolder.getContext().getAuthentication();
+        if (authToken.isAuthenticated()) {
+            return userRepository.findByUsername(authToken.getName());
+        }
+        return null;
     }
 }

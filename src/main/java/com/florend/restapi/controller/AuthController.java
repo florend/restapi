@@ -2,6 +2,7 @@ package com.florend.restapi.controller;
 
 import com.florend.restapi.dto.LoginDto;
 import com.florend.restapi.dto.RegisterDto;
+import com.florend.restapi.model.Users;
 import com.florend.restapi.payload.LoginResponse;
 import com.florend.restapi.service.AuthService;
 import org.springframework.http.HttpStatus;
@@ -28,5 +29,11 @@ public class AuthController {
     public ResponseEntity<LoginResponse> login(@RequestBody LoginDto user) {
         LoginResponse result = authService.login(user);
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<Users> getCurrentUser() {
+        Users user = authService.getCurrentUser();
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }
