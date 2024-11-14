@@ -3,6 +3,7 @@ package com.florend.restapi.config;
 import com.florend.restapi.jwt.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -35,6 +36,8 @@ public class SecurityConfig {
                 .cors(configurer -> configurer.configurationSource(customCorsConfiguration))
                 .csrf(configurer -> configurer.disable())
                 .authorizeHttpRequests(request -> request
+                        .requestMatchers(HttpMethod.GET, "api/posts").permitAll()
+                        .requestMatchers("api/posts/paginated").permitAll()
                         .requestMatchers("api/auth/register", "api/auth/login").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
