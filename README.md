@@ -1,6 +1,8 @@
 # Demo Rest API
 
 Simple REST API using Java Spring Boot
+To be used in conjunction with my [frontend project](https://github.com/florend/angular-app) in Angular.
+Or use a REST client like Postman.
 
 ## Requirements
 
