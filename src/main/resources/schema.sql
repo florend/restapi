@@ -6,11 +6,19 @@ create table if not exists users
     password varchar(255) not null
 );
 
-create table if not exists post (
-    id     serial primary key,
-    image  varchar(255) not null,
-    title  varchar(255) not null,
-    body   text,
-    date   date not null
+create table if not exists category
+(
+    id   serial primary key,
+    name varchar(75) not null unique
+);
+
+create table if not exists post
+(
+    id          serial primary key,
+    category_id serial references category (id),
+    image       varchar(255) not null,
+    title       varchar(255) not null,
+    body        text,
+    date        date         not null
 );
 

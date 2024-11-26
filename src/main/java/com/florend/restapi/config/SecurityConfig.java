@@ -41,6 +41,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "api/posts").permitAll()
                         .requestMatchers("api/posts/search").permitAll()
                         .requestMatchers("api/posts/paginated").permitAll()
+                        .requestMatchers("api/categories").permitAll()
                         .requestMatchers("api/auth/register", "api/auth/login").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())

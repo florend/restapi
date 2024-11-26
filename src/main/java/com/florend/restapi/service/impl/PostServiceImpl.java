@@ -45,7 +45,7 @@ public class PostServiceImpl  implements PostService {
         Specification<Post> hasTitleLike = PostSpecification.hasTitleLike(query);
         Page<Post> posts = postRepository.findAll(hasTitleLike, pageable);
         PostsResponse postsResponse = new PostsResponse();
-        postsResponse.setItems(posts.getContent());
+        postsResponse.setItems(posts.stream().map(PostMapper.INSTANCE::postToPostDto).collect(Collectors.toList()));
         postsResponse.setTotalCount(posts.getTotalElements());
         postsResponse.setTotalPages(posts.getTotalPages());
         return postsResponse;

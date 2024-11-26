@@ -21,6 +21,8 @@ public class Post {
     private String title;
 //    @Lob
     private String body;
-    //private Category category;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
     private LocalDateTime date;
 }

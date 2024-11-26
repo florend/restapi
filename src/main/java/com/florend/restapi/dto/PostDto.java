@@ -15,4 +15,5 @@ public class PostDto {
     private String title;
     private String body;
     private LocalDateTime date;
+    private CategoryDto category;
 }
