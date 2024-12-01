@@ -21,7 +21,3 @@ http://localhost:8080/swagger-ui/index.html
 
 ~~Add pg_password.txt at the root of the project containing the password of your postgres database.~~
 Not supported by spring-boot-docker-compose
-
-## Register a user
-
-Use a REST Client to register a user.

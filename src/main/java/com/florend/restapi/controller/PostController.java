@@ -29,7 +29,7 @@ public class PostController {
 
     @Operation(
             summary = "Retrieve all posts",
-            description = "Get all posts in the database",
+            description = "Get all posts from database",
             tags = { "posts", "get" }
     )
     @ApiResponses({
