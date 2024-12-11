@@ -5,10 +5,13 @@ import com.florend.restapi.mapper.CategoryMapper;
 import com.florend.restapi.model.Category;
 import com.florend.restapi.repository.CategoryRepository;
 import com.florend.restapi.service.CategoryService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.florend.restapi.config.CacheConstants.CATEGORIES_CACHE;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -18,6 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
+    @Cacheable(CATEGORIES_CACHE)
     @Override
     public List<CategoryDto> getAllCategories() {
         List<Category> categories = categoryRepository.findAll();

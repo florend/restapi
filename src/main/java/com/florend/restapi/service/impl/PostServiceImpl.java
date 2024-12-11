@@ -7,6 +7,10 @@ import com.florend.restapi.payload.PostsResponse;
 import com.florend.restapi.repository.PostRepository;
 import com.florend.restapi.repository.specification.PostSpecification;
 import com.florend.restapi.service.PostService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +23,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.florend.restapi.config.CacheConstants.*;
+
 @Service
 public class PostServiceImpl  implements PostService {
     final PostRepository postRepository;
@@ -27,18 +33,21 @@ public class PostServiceImpl  implements PostService {
         this.postRepository = postRepository;
     }
 
+    @Cacheable(value = POSTS_CACHE)
     @Override
     public List<PostDto> getAllPosts() {
         List<Post> posts = postRepository.findAll();
         return posts.stream().map(PostMapper.INSTANCE::postToPostDto).collect(Collectors.toList());
     }
 
+    @Cacheable(value = POSTS_CACHE)
     @Override
     public List<PostDto> searchPosts(String keyword) {
         List<Post> posts = postRepository.searchPosts(keyword);
         return posts.stream().map(PostMapper.INSTANCE::postToPostDto).collect(Collectors.toList());
     }
 
+    @Cacheable(value = POSTS_RESPONSE_CACHE)
     @Override
     public PostsResponse getPaginated(String query, int page, int pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize);
@@ -51,6 +60,7 @@ public class PostServiceImpl  implements PostService {
         return postsResponse;
     }
 
+    @Cacheable(value = POST_CACHE, key = "#id")
     @Override
     public PostDto getPostById(long id) {
         Optional<Post> post = postRepository.findById(id);
@@ -60,6 +70,10 @@ public class PostServiceImpl  implements PostService {
         return PostMapper.INSTANCE.postToPostDto(post.get());
     }
 
+    @Caching(evict = {
+            @CacheEvict(value = POSTS_CACHE, allEntries = true),
+            @CacheEvict(value = POSTS_RESPONSE_CACHE, allEntries = true)
+    })
     @Override
     public PostDto addPost(PostDto newPost) {
         Post newEntity = PostMapper.INSTANCE.postDtoToPost(newPost);
@@ -67,6 +81,13 @@ public class PostServiceImpl  implements PostService {
         return PostMapper.INSTANCE.postToPostDto(savedPost);
     }
 
+    @Caching(
+            evict = {
+                    @CacheEvict(value = POSTS_CACHE, allEntries = true),
+                    @CacheEvict(value = POSTS_RESPONSE_CACHE, allEntries = true)
+            },
+            put = {@CachePut(value = POST_CACHE, key = "#id")}
+    )
     @Override
     public PostDto updatePost(long id, PostDto newPost) {
         newPost.setId(id);
@@ -77,6 +98,11 @@ public class PostServiceImpl  implements PostService {
         Post updatedPost = postRepository.save(PostMapper.INSTANCE.postDtoToPost(newPost));
         return PostMapper.INSTANCE.postToPostDto(updatedPost);
     }
+
+    @Caching(
+            evict = {@CacheEvict(value = POSTS_CACHE, allEntries = true)},
+            put = {@CachePut(value = POST_CACHE, key = "#id")}
+    )
     @Override
     public void deletePost(long id) {
         postRepository.deleteById(id);
