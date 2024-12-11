@@ -100,8 +100,11 @@ public class PostServiceImpl  implements PostService {
     }
 
     @Caching(
-            evict = {@CacheEvict(value = POSTS_CACHE, allEntries = true)},
-            put = {@CachePut(value = POST_CACHE, key = "#id")}
+            evict = {
+                    @CacheEvict(value = POSTS_CACHE, allEntries = true),
+                    @CacheEvict(value = POSTS_RESPONSE_CACHE, allEntries = true),
+                    @CacheEvict(value = POST_CACHE, key = "#id")
+            }
     )
     @Override
     public void deletePost(long id) {
